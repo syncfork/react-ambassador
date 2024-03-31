@@ -59,7 +59,7 @@ const Users = () => {
                     <TablePagination
                         count={users.length}
                         page={page}
-                        onChangePage={(e, newPage) => setPage(newPage)}
+                        onPageChange={(e, newPage) => setPage(newPage)}
                         rowsPerPage={perPage}
                         rowsPerPageOptions={[]}
                     />
