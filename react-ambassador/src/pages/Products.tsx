@@ -57,7 +57,7 @@ const Products = (props: {
             setNotify({
                 show: true,
                 error: false,
-                message: `Link generated: http://localhost:5000/${data.code}`
+                message: `http://localhost:5000/${data.code}`
             });
         } catch (e) {
             setNotify({
