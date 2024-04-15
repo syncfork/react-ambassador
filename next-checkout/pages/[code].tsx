@@ -19,11 +19,13 @@ export default function Home() {
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
     const [zip, setZip] = useState('');
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (code != undefined) {
             (
                 async () => {
+                    //http://localhost:8000/api/checkout
                     const {data} = await axios.get(`${constants.endpoint}/links/${code}`);
 
                     setUser(data.user);
@@ -48,6 +50,7 @@ export default function Home() {
 
             return q;
         }));
+        setError('');
     }
 
     const total = () => {
@@ -61,6 +64,12 @@ export default function Home() {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
+        //validate products
+        if (total() === 0){
+            setError('Please select at least one product!'); 
+            return null;
+        }
+         //http://localhost:8000/api/checkout/orders
         const {data} = await axios.post(`${constants.endpoint}/orders`, {
             first_name,
             last_name,
@@ -184,7 +193,7 @@ export default function Home() {
 
 
                             <hr className="my-4"/>
-
+                            {error && <div style={{ color: 'red' }}>{error}</div>}
                             <button className="w-100 btn btn-primary btn-lg" type="submit">Checkout</button>
                         </form>
                     </div>
